@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import style from "./post.module.css";
 
 export const getPost = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -16,9 +17,13 @@ export default async function Posts() {
       {posts.map((singlePost) => (
         // Each `singlePost` div is now a direct child of the grid container,
         // so it will automatically be placed into the grid columns.
-        <div key={singlePost.id} className="border p-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-2">{singlePost.title}</h2>
-          <p className="text-gray-700">{singlePost.body}</p>
+        <div key={singlePost.id} className="border p-4 rounded-lg shadow-md ">
+          <h2 className={`text-xl font-semibold mb-2 ${style["test-bg"]}`}>
+            {singlePost.title}
+          </h2>
+          <p className="text-gray-700 testing-purpose-css-class">
+            {singlePost.body}
+          </p>
           <Link href={`/posts/${singlePost.id}`}>Details</Link>
         </div>
       ))}
