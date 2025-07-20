@@ -5,21 +5,27 @@ export const getSinglePost = async (post_id) => {
     `https://jsonplaceholder.typicode.com/posts/${post_id}`
   );
   if (!res.ok) {
-    // Optional: Add error handling for non-successful responses
-    // For example, throw an error to be caught by an error.js boundary
     throw new Error(`Failed to fetch post: ${res.statusText}`);
   }
   const data = await res.json();
   return data;
 };
 
-export default async function SinglePost({ params }) {
-  // Destructure 'id' directly from params for cleaner access
-  const { id } = params;
+export async function generateMetadata({ params }) {
+  // read route params
+  const id = (await params).id;
 
-  // It's good practice to add a console.log here for debugging,
-  // especially to confirm the ID is being passed correctly.
-  // console.log("Fetching post with ID:", id);
+  // fetch data
+  const singlePost = await getSinglePost(id);
+
+  return {
+    title: singlePost.title,
+    description: singlePost.body,
+  };
+}
+
+export default async function SinglePost({ params }) {
+  const { id } = params;
 
   const singlePost = await getSinglePost(id);
 

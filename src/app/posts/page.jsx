@@ -8,6 +8,11 @@ export const getPost = async () => {
   return data;
 };
 
+export const metadata = {
+  title: " All Posts | Learning NextJS",
+  description: "Loading JSON jsonPlace post using server component",
+};
+
 export default async function Posts() {
   const posts = await getPost();
   return (
